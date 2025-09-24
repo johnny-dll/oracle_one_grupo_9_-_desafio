@@ -9,6 +9,8 @@
     --color-white: #FFFFFF;
     --color-dark-purple: #4b0082;
     --color-light-yellow: #ffffcc;
+    --color-gray: #808080;
+    --color-red: #ff0000;
 }
 
 /* --- Estilos Gerais da Página --- */
@@ -16,6 +18,7 @@ body {
     background-color: var(--color-dark-purple);
     font-family: "MS Reference Sans Serif", Arial, sans-serif;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
@@ -43,7 +46,7 @@ body {
     height: 100%;
     background-image: url('assets/amigo-secreto.png');
     background-size: cover;
-    background-position: center;
+    background-position: top center;
     background-repeat: no-repeat;
     opacity: 0.3;
     z-index: 1;
@@ -66,13 +69,15 @@ body {
 
 /* --- Título Principal --- */
 .main-title {
-    font-size: 2em;
-    font-weight: 900;
-    color: var(--color-primary);
-    text-align: center;
+    font-size: 2.5em;
+    font-weight: bold;
+    color: var(--color-text);
+    text-align: justify;
+    width: 90%;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.2);
-    border-bottom: 2px solid var(--color-dark-purple);
+    background-color: transparent;
+    z-index: 3;
+    text-decoration: underline;
 }
 
 /* --- Estilos das Etapas do Jogo --- */
@@ -96,15 +101,15 @@ body {
     color: var(--color-primary);
 }
 
+.info-section {
+    width: 100%;
+    margin-top: 20px;
+}
+
 #valor-gasto {
     font-size: 1.8em;
     font-weight: bold;
     color: var(--color-dark-purple);
-}
-
-.info-section {
-    width: 100%;
-    margin-top: 20px;
 }
 
 /* --- Estilos de Input e Botão --- */
@@ -120,6 +125,18 @@ body {
     border: 2px solid var(--color-dark-purple);
     font-size: 16px;
     border-radius: 0;
+}
+
+/* Validação Visual de erro */
+.input-name.error {
+    border-color: var(--color-red);
+    animation: shake 0.3s;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
 }
 
 .game-btn {
@@ -152,4 +169,28 @@ body {
 #amigos-lista li {
     padding: 5px 0;
     border-bottom: 1px dashed var(--color-primary);
+}
+
+/* --- Estilo do Nome Sorteado --- */
+.revealed-name {
+    font-weight: bold;
+    color: var(--color-gray);
+    text-decoration: line-through;
+}
+
+/* --- Rodapé --- */
+.footer {
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+    color: var(--color-white);
+    background-color: var(--color-dark-purple);
+    position: relative;
+    z-index: 2;
+}
+
+@media (max-width: 768px) {
+    .main-title {
+        font-size: 1.5em;
+    }
 }

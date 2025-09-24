@@ -9,44 +9,55 @@
 <body>
 
     <div class="main-content">
+        <!-- Título do Jogo -->
         <h1 class="main-title">Este é um jogo de Amigo Secreto desenvolvido para o Desafio do Oracle Next Education (Grupo 9 - 2025)</h1>
         
+        <!-- Contêiner principal das etapas do jogo -->
         <div class="game-container">
+            <!-- Seção 1: Definir o Valor -->
             <div id="set-value-container" class="game-step">
                 <h2 class="section-title">Qual será o valor a ser gasto por pessoa?</h2>
                 <div class="input-wrapper">
                     <input type="text" id="value-input" placeholder="Digite o valor (R$)" class="input-name">
                     <button id="define-btn" class="game-btn">Definir</button>
                 </div>
+                <!-- Resposta do valor definido -->
+                <div id="valor-display" class="info-section hidden">
+                    <h3 class="section-title">Valor Definido</h3>
+                    <h4 id="valor-gasto">R$ 0,00</h4>
+                </div>
             </div>
 
+            <!-- Seção 2: Adicionar Nomes e a Lista -->
             <div id="add-names-container" class="game-step hidden">
                 <h2 class="section-title">Digite o nome dos seus amigos</h2>
                 <div class="input-wrapper">
                     <input type="text" id="name-input" placeholder="Digite um nome" class="input-name">
                     <button id="add-btn" class="game-btn">Adicionar</button>
                 </div>
+                <!-- Lista de amigos adicionados -->
+                <div id="names-display" class="info-section hidden">
+                    <h3 class="section-title">Amigos Adicionados</h3>
+                    <ul id="amigos-lista"></ul>
+                </div>
+                <!-- Botão Sortear, abaixo dos nomes -->
                 <div class="button-container">
                     <button id="sortearBtn" class="game-btn" disabled>Sortear</button>
                 </div>
             </div>
 
-            <div id="info-display-container" class="game-step hidden">
-                <div class="info-section">
-                    <h2 class="section-title">Valor Definido</h2>
-                    <h3 id="valor-gasto">R$ 0,00</h3>
-                </div>
-                <div class="info-section">
-                    <h2 class="section-title">Amigos Adicionados</h2>
-                    <ul id="amigos-lista"></ul>
-                </div>
-            </div>
-
+            <!-- Resultado do Sorteio -->
             <div id="resultado-sorteio" class="game-step hidden">
                 <p id="sorteio-message"></p>
+                <button id="restart-btn" class="game-btn">Novo Sorteio</button>
             </div>
         </div>
     </div>
+    
+    <footer class="footer">
+        <p>Desafio Amigo Secreto criado por João Llorca (joao.llorca@gmail.com).</p>
+            <p>Desenvolvido para o Desafio Oracle ONE - Grupo 9 - 2025</p>
+    </footer>
     
     <script src="app.js"></script>
 
