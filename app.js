@@ -1,21 +1,27 @@
-let participantes = []; // Array para armazenar os nomes dos participantes
-let valorDefinido = false;
+let participantes = [];
 let valorPresente;
 
-// Mapeia os elementos do HTML para variáveis JS
-const nameInput = document.getElementById('amigo');
-const addOrDefineButton = document.getElementById('add-btn');
-const sortearButton = document.getElementById('sortearBtn');
-const nameList = document.getElementById('amigos-lista');
-const priceDisplay = document.getElementById('valor-gasto');
-const inputTitle = document.getElementById('input-title');
+// Mapeamento dos elementos do HTML
+const valueInput = document.getElementById('value-input');
+const defineBtn = document.getElementById('define-btn');
+const nameInput = document.getElementById('name-input');
+const addBtn = document.getElementById('add-btn');
+const sortearBtn = document.getElementById('sortearBtn');
+const valorGastoDisplay = document.getElementById('valor-gasto');
+const amigosLista = document.getElementById('amigos-lista');
+const inputTitle = document.querySelector('#set-value-container .section-title');
 const resultadoSorteio = document.getElementById('resultado-sorteio');
+const sorteioMessage = document.getElementById('sorteio-message');
 
-//--- FUNÇÕES PRINCIPAIS ---
+// Contêineres de cada etapa
+const setValueContainer = document.getElementById('set-value-container');
+const addNamesContainer = document.getElementById('add-names-container');
+const infoDisplayContainer = document.getElementById('info-display-container');
 
-// Função para definir o valor do presente
+// --- Funções de Lógica do Jogo ---
+
 function definirValor() {
-    const valorCampo = nameInput.value.replace(',', '.');
+    const valorCampo = valueInput.value.replace(',', '.');
     valorPresente = parseFloat(valorCampo);
 
     if (isNaN(valorPresente) || valorPresente < 50 || valorPresente > 450) {
@@ -23,26 +29,31 @@ function definirValor() {
         return;
     }
 
-    valorDefinido = true;
-    priceDisplay.textContent = `R$ ${valorPresente.toFixed(2).replace('.', ',')}`;
-    mudarParaAdicionarNomes();
-}
-
-// Função para mudar a interface para adicionar nomes
-function mudarParaAdicionarNomes() {
-    inputTitle.textContent = "Digite o nome dos seus amigos";
-    nameInput.placeholder = "Digite um nome";
-    nameInput.value = '';
+    // Atualiza o display do valor
+    valorGastoDisplay.textContent = `R$ ${valorPresente.toFixed(2).replace('.', ',')}`;
     
-    addOrDefineButton.textContent = "Adicionar";
-    // Remove o listener de "Definir" e adiciona o de "Adicionar"
-    addOrDefineButton.removeEventListener('click', definirValor);
-    addOrDefineButton.addEventListener('click', adicionarAmigo);
-
-    sortearButton.disabled = false;
+    // Desabilita o campo de input e muda o botão para "Alterar valor"
+    valueInput.disabled = true;
+    defineBtn.textContent = "Alterar valor";
+    
+    // Esconde a etapa de definir valor e mostra as próximas
+    setValueContainer.classList.add('hidden');
+    addNamesContainer.classList.remove('hidden');
+    infoDisplayContainer.classList.remove('hidden');
 }
 
-// Função para adicionar um nome à lista
+function alterarValor() {
+    // Habilita o campo de input e muda o botão de volta para "Definir"
+    valueInput.disabled = false;
+    defineBtn.textContent = "Definir";
+    
+    // Esconde as etapas seguintes e volta para a de definir valor
+    setValueContainer.classList.remove('hidden');
+    addNamesContainer.classList.add('hidden');
+    infoDisplayContainer.classList.add('hidden');
+    resultadoSorteio.classList.add('hidden');
+}
+
 function adicionarAmigo() {
     const nome = nameInput.value.trim();
 
@@ -50,21 +61,22 @@ function adicionarAmigo() {
         participantes.push(nome);
         renderizarListaDeNomes();
         nameInput.value = '';
+
+        if (participantes.length >= 3) {
+            sortearBtn.disabled = false;
+        }
     } else if (participantes.includes(nome)) {
         alert('Este nome já foi adicionado!');
     }
 }
 
-// Função para sortear os nomes
 function sortearAmigo() {
-    if (participantes.length < 2) {
-        alert('É necessário ter pelo menos 2 participantes para o sorteio!');
+    if (participantes.length < 3) {
+        alert('É necessário ter pelo menos 3 participantes para o sorteio!');
         return;
     }
 
-    // Lógica para embaralhar e garantir que ninguém tire a si mesmo
     const embaralhados = [...participantes];
-    
     let sorteioValido = false;
     while (!sorteioValido) {
         embaralhados.sort(() => Math.random() - 0.5);
@@ -77,39 +89,41 @@ function sortearAmigo() {
         }
     }
     
-    // Mostra o resultado completo no Console.log (apenas para o desenvolvedor)
+    // Esconde as etapas anteriores e mostra o resultado
+    addNamesContainer.classList.add('hidden');
+    infoDisplayContainer.classList.add('hidden');
+    resultadoSorteio.classList.remove('hidden');
+
+    // Mostra a mensagem e o nome da pessoa sorteada na tela
+    sorteioMessage.textContent = `Através do sorteio realizado, você, ${participantes[0]}, deverá presentear esta pessoa: ${embaralhados[0]}`;
+    
+    // Mostra o resultado completo no Console para os organizadores do jogo
     console.log("--- Resultado do Sorteio ---");
     for (let i = 0; i < participantes.length; i++) {
         console.log(`${participantes[i]} tirou ${embaralhados[i]}`);
     }
     console.log("----------------------------");
-
-    // Mostra a mensagem genérica na tela
-    const mensagemSorteio = "Através do sorteio realizado, você deverá presentear esta pessoa:";
-    resultadoSorteio.textContent = mensagemSorteio;
-    resultadoSorteio.style.display = 'block';
-    
-    // Exibe o nome da pessoa sorteada no console
-    // OBS: Você pode personalizar esta parte para o sorteio de um único usuário
-    console.log(`Você deverá presentear: ${embaralhados[0]}`); 
 }
 
-//--- FUNÇÕES DE RENDERIZAÇÃO E INÍCIO ---
+// --- Funções de Renderização e Eventos ---
 
-// Função para renderizar a lista de nomes na tela
 function renderizarListaDeNomes() {
-    nameList.innerHTML = '';
+    amigosLista.innerHTML = '';
     participantes.forEach(nome => {
         const item = document.createElement('li');
         item.textContent = nome;
-        nameList.appendChild(item);
+        amigosLista.appendChild(item);
     });
 }
 
-// Inicia a aplicação na primeira etapa
-window.onload = function() {
-    // Adiciona o listener inicial para o botão "Definir"
-    addOrDefineButton.addEventListener('click', definirValor);
-    sortearButton.addEventListener('click', sortearAmigo);
-    sortearButton.disabled = true;
-};
+// Event Listeners dinâmicos
+defineBtn.addEventListener('click', () => {
+    if (defineBtn.textContent === "Definir") {
+        definirValor();
+    } else {
+        alterarValor();
+    }
+});
+
+addBtn.addEventListener('click', adicionarAmigo);
+sortearBtn.addEventListener('click', sortearAmigo);

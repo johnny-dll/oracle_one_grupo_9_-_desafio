@@ -3,193 +3,153 @@
     --color-primary: #4B69FD;
     --color-secondary: #FFF9EB;
     --color-tertiary: #C4C4C4;
-    --color-button: #e0ffff; /* Azul bem claro */
-    --color-button-hover: #b3e6e6; /* Um tom um pouco mais escuro para o hover */
+    --color-button: #e0ffff;
+    --color-button-hover: #b3e6e6;
     --color-text: #444444;
     --color-white: #FFFFFF;
-    --color-dark-purple: #4b0082; /* Roxo escuro para a borda */
+    --color-dark-purple: #4b0082;
     --color-light-yellow: #ffffcc;
 }
 
-/* --- Estilos Gerais --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* --- Estilos Gerais da Página --- */
 body {
-    height: 100vh;
-    background-color: var(--color-primary);
+    background-color: var(--color-dark-purple);
+    font-family: "MS Reference Sans Serif", Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: "MS Reference Sans Serif", Arial, sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
 }
 
 .main-content {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-    max-width: 1000px;
-}
-
-/* --- Banner com Imagem de Fundo e Opacidade --- */
-.header-banner {
-    flex: 40%;
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    background-image: url('assets/amigo-secreto.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    
-    z-index: 1;
+    width: 92%;
+    min-height: 90vh;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    background-color: var(--color-secondary);
 }
 
-.header-banner::before {
+/* Fundo com a imagem e opacidade */
+.main-content::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--color-light-yellow);
-    opacity: 0.75;
+    background-image: url('assets/amigo-secreto.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.3;
+    z-index: 1;
+}
+
+.game-container {
+    position: relative;
     z-index: 2;
-}
-
-/* --- Seção de Entrada (com layout de 3 colunas) --- */
-.input-section {
-    flex: 60%;
-    background-color: var(--color-secondary);
-    border: 1px solid #000;
-    border-radius: 64px 64px 0 0;
+    padding: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
-    width: 100%;
+    gap: 30px;
+    min-height: 90vh;
 }
 
-.column-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    width: 100%;
+.hidden {
+    display: none;
 }
 
-.column {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 30%;
-    min-height: 200px;
-    margin: 10px;
-    border: 2px solid var(--color-tertiary);
-    padding: 15px;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-#price-column {
-    background-color: #e0f2f7;
-}
-
-#names-column {
-    background-color: #f7e0f2;
-}
-
-#game-input-container {
-    background-color: #f0f0f0;
-}
-
-/* --- Títulos e Textos --- */
+/* --- Título Principal --- */
 .main-title {
-    font-size: 28px;
-    font-family: "MS Reference Sans Serif", sans-serif;
+    font-size: 2em;
     font-weight: 900;
-    font-style: normal; /* Remove o itálico */
     color: var(--color-primary);
     text-align: center;
-    position: relative;
-    z-index: 3;
-    padding: 10px 20px;
+    padding: 20px;
     background-color: rgba(255, 255, 255, 0.2);
+    border-bottom: 2px solid var(--color-dark-purple);
+}
+
+/* --- Estilos das Etapas do Jogo --- */
+.game-step {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    text-align: center;
 }
 
 .section-title {
-    font-family: "MS Reference Sans Serif", sans-serif;
     font-size: 1.5em;
     font-weight: 700;
     color: var(--color-primary);
-    margin: 10px 0;
-    text-align: center;
 }
 
-h3 {
-    font-family: "MS Reference Sans Serif", sans-serif;
-    font-size: 1.2em;
-    color: var(--color-primary);
+#valor-gasto {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: var(--color-dark-purple);
+}
+
+.info-section {
+    width: 100%;
+    margin-top: 20px;
 }
 
 /* --- Estilos de Input e Botão --- */
 .input-wrapper {
     display: flex;
-    justify-content: center;
     width: 100%;
-    max-width: 600px;
-    margin-top: 20px;
+    gap: 5px;
 }
 
 .input-name {
-    width: 100%;
+    flex-grow: 1;
     padding: 10px;
-    border: 2px solid #000;
+    border: 2px solid var(--color-dark-purple);
     font-size: 16px;
-    border-radius: 0; /* Torna as bordas quadradas */
+    border-radius: 0;
 }
 
-button {
-    padding: 15px 30px;
-    font-family: "MS Reference Sans Serif", sans-serif;
+.game-btn {
+    padding: 10px 20px;
     font-size: 16px;
-    border: 2px solid var(--color-dark-purple); /* Borda roxa escura */
-    border-radius: 0; /* Torna as bordas quadradas */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
+    border: 2px solid var(--color-dark-purple);
+    border-radius: 0;
     background-color: var(--color-button);
     color: var(--color-text);
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-button:hover {
+.game-btn:hover {
     background-color: var(--color-button-hover);
 }
 
-/* --- Lista de Nomes --- */
+.game-btn:disabled {
+    background-color: var(--color-tertiary);
+    cursor: not-allowed;
+    border-color: #999;
+}
+
 #amigos-lista {
     list-style-type: none;
-    text-align: center;
-    width: 100%;
     padding: 0;
+    margin-top: 10px;
 }
 
 #amigos-lista li {
     padding: 5px 0;
     border-bottom: 1px dashed var(--color-primary);
-}
-
-/* --- Seção de Resultado do Sorteio (Inicialmente Oculta) --- */
-#resultado-sorteio {
-    display: none;
-    text-align: center;
-    margin-top: 20px;
-    font-size: 1.5em;
-    color: var(--color-primary);
-    font-weight: bold;
 }

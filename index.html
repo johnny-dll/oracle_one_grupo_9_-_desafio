@@ -9,38 +9,42 @@
 <body>
 
     <div class="main-content">
-        <div class="header-banner">
-            <h1 class="main-title">Este é um jogo de Amigo Secreto desenvolvido para o Desafio do Oracle Next Education (Grupo 9 - 2025)</h1>
-        </div>
-
-        <div class="input-section">
-            <div class="column-container">
-                <div id="price-column" class="column">
-                    <h2 class="section-title">Valor Definido</h2>
-                    <h3 id="valor-gasto">R$ 0,00</h3>
-                </div>
-                
-                <div id="game-input-container" class="column">
-                    <h2 id="input-title" class="section-title">Qual será o valor a ser gasto por pessoa?</h2>
-                    <div class="input-wrapper">
-                        <input type="text" id="amigo" placeholder="Digite o valor (R$)" class="input-name">
-                        <button id="add-btn">Definir</button>
-                    </div>
-                    <div class="button-container">
-                        <button id="sortearBtn">Sortear</button>
-                    </div>
-                </div>
-
-                <div id="names-column" class="column">
-                    <h2 class="section-title">Amigos Adicionados</h2>
-                    <ul id="amigos-lista">
-                        </ul>
+        <h1 class="main-title">Este é um jogo de Amigo Secreto desenvolvido para o Desafio do Oracle Next Education (Grupo 9 - 2025)</h1>
+        
+        <div class="game-container">
+            <div id="set-value-container" class="game-step">
+                <h2 class="section-title">Qual será o valor a ser gasto por pessoa?</h2>
+                <div class="input-wrapper">
+                    <input type="text" id="value-input" placeholder="Digite o valor (R$)" class="input-name">
+                    <button id="define-btn" class="game-btn">Definir</button>
                 </div>
             </div>
 
-            <div id="resultado-sorteio" class="result-section">
+            <div id="add-names-container" class="game-step hidden">
+                <h2 class="section-title">Digite o nome dos seus amigos</h2>
+                <div class="input-wrapper">
+                    <input type="text" id="name-input" placeholder="Digite um nome" class="input-name">
+                    <button id="add-btn" class="game-btn">Adicionar</button>
                 </div>
-            
+                <div class="button-container">
+                    <button id="sortearBtn" class="game-btn" disabled>Sortear</button>
+                </div>
+            </div>
+
+            <div id="info-display-container" class="game-step hidden">
+                <div class="info-section">
+                    <h2 class="section-title">Valor Definido</h2>
+                    <h3 id="valor-gasto">R$ 0,00</h3>
+                </div>
+                <div class="info-section">
+                    <h2 class="section-title">Amigos Adicionados</h2>
+                    <ul id="amigos-lista"></ul>
+                </div>
+            </div>
+
+            <div id="resultado-sorteio" class="game-step hidden">
+                <p id="sorteio-message"></p>
+            </div>
         </div>
     </div>
     
