@@ -1,14 +1,17 @@
+/* --- Variáveis de Cores --- */
 :root {
     --color-primary: #4B69FD;
     --color-secondary: #FFF9EB;
     --color-tertiary: #C4C4C4;
-    --color-button: #fe652b;
-    --color-button-hover: #e55720;
+    --color-button: #e0ffff; /* Azul bem claro */
+    --color-button-hover: #b3e6e6; /* Um tom um pouco mais escuro para o hover */
     --color-text: #444444;
     --color-white: #FFFFFF;
+    --color-dark-purple: #4b0082; /* Roxo escuro para a borda */
+    --color-light-yellow: #ffffcc;
 }
 
-/* Estilos gerais */
+/* --- Estilos Gerais --- */
 * {
     margin: 0;
     padding: 0;
@@ -21,6 +24,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: "MS Reference Sans Serif", Arial, sans-serif;
 }
 
 .main-content {
@@ -28,18 +32,38 @@ body {
     flex-direction: column;
     height: 100%;
     width: 100%;
+    max-width: 1000px;
 }
 
-/* Banner */
+/* --- Banner com Imagem de Fundo e Opacidade --- */
 .header-banner {
     flex: 40%;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px 0 0;
+    
+    background-image: url('assets/amigo-secreto.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    z-index: 1;
 }
 
-/* Seção de entrada */
+.header-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-light-yellow);
+    opacity: 0.75;
+    z-index: 2;
+}
+
+/* --- Seção de Entrada (com layout de 3 colunas) --- */
 .input-section {
     flex: 60%;
     background-color: var(--color-secondary);
@@ -52,25 +76,69 @@ body {
     width: 100%;
 }
 
-/* Títulos */
+.column-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    min-height: 200px;
+    margin: 10px;
+    border: 2px solid var(--color-tertiary);
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#price-column {
+    background-color: #e0f2f7;
+}
+
+#names-column {
+    background-color: #f7e0f2;
+}
+
+#game-input-container {
+    background-color: #f0f0f0;
+}
+
+/* --- Títulos e Textos --- */
 .main-title {
-    font-size: 48px;
-    font-family: "Merriweather", serif;
+    font-size: 28px;
+    font-family: "MS Reference Sans Serif", sans-serif;
     font-weight: 900;
-    font-style: italic;
-    color: var(--color-white);
+    font-style: normal; /* Remove o itálico */
+    color: var(--color-primary);
+    text-align: center;
+    position: relative;
+    z-index: 3;
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .section-title {
-    font-family: "Inter", serif;
-    font-size: 36px;
+    font-family: "MS Reference Sans Serif", sans-serif;
+    font-size: 1.5em;
     font-weight: 700;
     color: var(--color-primary);
     margin: 10px 0;
     text-align: center;
 }
 
-/* Contêineres de entrada e botão */
+h3 {
+    font-family: "MS Reference Sans Serif", sans-serif;
+    font-size: 1.2em;
+    color: var(--color-primary);
+}
+
+/* --- Estilos de Input e Botão --- */
 .input-wrapper {
     display: flex;
     justify-content: center;
@@ -83,80 +151,45 @@ body {
     width: 100%;
     padding: 10px;
     border: 2px solid #000;
-    border-radius: 25px 0 0 25px;
     font-size: 16px;
+    border-radius: 0; /* Torna as bordas quadradas */
 }
 
-.button-container {
-    width: 300px;
-    justify-content: center;
-}
-
-/* Estilos de entrada de texto */
-.input-title {
-    flex: 1;
-    padding: 10px 15px;
-    font-size: 16px;
-    border: 2px solid #333;
-    border-right: none;
-    border-radius: 25px 0 0 25px;
-    font-family: "Merriweather", serif;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-/* Estilos de botão */
 button {
     padding: 15px 30px;
-    font-family: "Inter", sans-serif;
+    font-family: "MS Reference Sans Serif", sans-serif;
     font-size: 16px;
-    border: 2px solid #000;
-    border-radius: 25px;
+    border: 2px solid var(--color-dark-purple); /* Borda roxa escura */
+    border-radius: 0; /* Torna as bordas quadradas */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     cursor: pointer;
-}
-
-.button-add {
-    background-color: var(--color-tertiary);
-    color: var(--color-text);
-    border-radius: 0 25px 25px 0;
-}
-
-.button-add:hover {
-    background-color: #a1a1a1;
-}
-
-/* Listas */
-ul {
-    list-style-type: none;
-    color: var(--color-text);
-    font-family: "Inter", sans-serif;
-    font-size: 18px;
-    margin: 20px 0;
-}
-
-.result-list {
-    margin-top: 15px;
-    color: #05DF05;
-    font-size: 22px;
-    font-weight: bold;
-    text-align: center;
-}
-
-/* Botão de sortear título */
-.button-draw {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    padding: 10px 40px;
-    color: var(--color-white);
     background-color: var(--color-button);
-    font-size: 16px;
+    color: var(--color-text);
 }
 
-.button-draw img {
-    margin-right: 40px;
-}
-
-.button-draw:hover {
+button:hover {
     background-color: var(--color-button-hover);
+}
+
+/* --- Lista de Nomes --- */
+#amigos-lista {
+    list-style-type: none;
+    text-align: center;
+    width: 100%;
+    padding: 0;
+}
+
+#amigos-lista li {
+    padding: 5px 0;
+    border-bottom: 1px dashed var(--color-primary);
+}
+
+/* --- Seção de Resultado do Sorteio (Inicialmente Oculta) --- */
+#resultado-sorteio {
+    display: none;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1.5em;
+    color: var(--color-primary);
+    font-weight: bold;
 }
